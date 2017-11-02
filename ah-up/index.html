@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Midterm Project</title>
+    <script src="../p5/p5.js" type="text/javascript"></script>
+    <script src="../p5/addons/p5.dom.js" type="text/javascript"></script>
+    <script src="../p5/addons/p5.sound.js" type="text/javascript"></script>
+    <script src="p5.collide2d.min.js" type="text/javascript"></script>
+
+    <script src="Rocket.js" type="text/javascript"></script>
+    <script src="Obstacle.js" type="text/javascript"></script>
+    <script src="Coin.js" type="text/javascript"></script>
+    <script src="sketch.js" type="text/javascript"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <style>
+        img {
+            display: block;
+            margin: auto;
+        }
+
+        .row {
+            margin: 15px;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="container">
+    <div class="page-header">
+        <h1 class="text-center">Ah-Up! Midterm Project</h1>
+        <h1 class="text-center">
+            <small>Herbert Li and Hanming Zeng</small>
+        </h1>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-5">
+            <div class="row">
+                <div class="center-block" id="game"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <img src="images/startScreen.png" height="200">
+                </div>
+                <div class="col-md-6">
+                    <img src="images/playingScreen.png" height="200">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <img src="images/playingScreen.png" height="200">
+                </div>
+                <div class="col-md-6">
+                    <img src="images/gameOverScreen.png" height="200">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-7">
+            <h2>Introduction:</h2>
+            <p>Ah-Up is a voice-controlled game inspired by other vertical platformers like Doodle Jump. In Ah-Up, you
+                take control of rocket and use your voice to propel it upwards while grabbing coins and avoiding
+                obstacles. You can play the game on the left (if you don't see it, make sure you're using HTTPS).
+            </p>
+            <h2>How to Play:</h2>
+            <p>In regular mode (pressing ‘S’ in the start screen), you can use the A and D keys to move left and right,
+                but you need to use your voice to make the rocket move up and down. In cheat mode (pressing ‘C’ in the
+                start screen), you can just use the WASD keys to control the rocket in addition to your voice. The goal
+                of the game is to fly as high as possible while avoiding comets, collecting coins, and making sure not
+                to fall under the Danger Line. It’s a great stress reliever because it makes use of your desperate
+                screams. It’s also fun to play with your friends, which you can do constructively (both of you trying to
+                win), or destructively (having your friend try and sabotage you by yelling).
+            </p>
+            <h2>Implementation Details:</h2>
+            <p>For this project, we defined several classes: Rocket, Coin, Obstacle, Particle, etc. For collisions, we
+                used the extremely useful library, <a href="https://github.com/bmoren/p5.collide2D">p5.collide2D</a>
+                (we recommend anyone who needs collision detection in their project to use this library, it's super
+                easy).
+            </p>
+            <h3>Background scrolling:</h3>
+            <p>We used a very long picture for our background and just scrolled it down during the game play. When it
+                runs out, it just loops back to initial state.
+            </p>
+            <h3>Particle System:</h3>
+            <p>For this, we made a Particle class. In its constructor, you can specify its x-position, y-position, and
+                whether the particle should fall up or down. The particles also reduce their opacity over time. Whenever
+                a particle goes out of bounds or its opacity reaches 0, it is removed in order to save memory.
+            </p>
+            <h3>Animation:</h3>
+            <p>
+                Here we made use of a separate game state. In this state, we continued to draw the coins and obstacles
+                as normal, but we removed the collision and voice detection for the rocket in order to make it fall, and
+                rotated it to make it seem like it was spinning out of control.
+            </p>
+            <h2>Moving Forward:</h2>
+            <p>
+                Both of us are not designers, so given more time we would've liked to improve our UI and add custom
+                assets/animations for the various objects in our game. Another idea that we wanted to incorporate was to
+                use the voice recognition library in p5. One idea was for the user to say "save me" in order to continue
+                playing, or saying "shoot" in order to destroy obstacles. We also thought about using cookies to save
+                high scores. Of course, if we had time we could also run a backend DB to store user score data.
+            </p>
+            <h2>Challenges:</h2>
+            <p>
+                Our first challenge came very early on. Although the rocket moves upwards, we found it easier to make
+                everything fall downwards instead. A second challenge was collision detection, which we solved through
+                the use of <a href="https://github.com/bmoren/p5.collide2D">p5.collide2D</a>. The death animation was
+                also a challenge (though more annoying than challenging) as we had to add an additional state to the
+                game.
+            </p>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+</body>
+</html>
