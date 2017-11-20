@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+</head>
+<body>
+
+<div class="container">
+    <div class="page-header">
+        <h1 class="text-center">Assignment 6 - Virtual Reality</h1>
+        <h1 class="text-center">
+            <small>Herbert Li</small>
+        </h1>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-5">
+            <div class="row">
+                <img src="images/screenshot1.png" height="200" class="center-block">
+            </div>
+            <div class="row">
+                <img src="images/screenshot2.png" height="200" class="center-block">
+            </div>
+        </div>
+
+        <div class="col-md-7">
+            <h2 class="text-center">About</h2>
+            <p>
+                With the holidays right around the corner, I thought a great idea for this assignment was to make a winter-themed
+                VR experience. There are several classes, one for snowman, snow, and tree. The tree is a bread-and-butter class
+                consisting of a cylindrical trunk, and three cones for a tree shape. In order to implement the Snow class I had
+                to do a little "cheat". Rendering thousands of snow particles is a bad idea performance wise, so instead, I only
+                rendered a hundred snow particles. But, I made sure that these one hundred particles would always fall near the
+                player, to give the illusion that it was actually snowing. The Snowman class used container3d as well as Perlin
+                noise for movement. It also has a click behavior, when you click the top most block, the snowman get an additional
+                block added on top of it (maximum 4 blocks total)!
+            </p>
+            <p class="text-center">
+                That being said... Click <a href="index.html">here</a> to check it out!
+            </p>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>
