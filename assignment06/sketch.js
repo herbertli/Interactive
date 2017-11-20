@@ -6,7 +6,7 @@ var userPos;
 
 function preload() {
     soundFormats('ogg', 'mp3');
-    silentNight = loadSound('sounds/silentNight.mp3');
+    silentNight = loadSound('sounds/silentnight.mp3');
 }
 
 function setup() {
