@@ -83,8 +83,8 @@ function draw() {
 
 function checkHits() {
     for (var i = 0; i < ufos.length; i++) {
-        var x = round(ufos[i].x - 1);
-        var y = round(ufos[i].y - 1);
+        var x = round(ufos[i].x);
+        var y = round(ufos[i].y);
 
         var loc = (x + y * 500) * 4;
 
@@ -92,7 +92,7 @@ function checkHits() {
             capture.pixels[loc + 2], compareFrame.pixels[loc],
             compareFrame.pixels[loc + 1], compareFrame.pixels[loc + 2]);
 
-        if (change > threshold) {
+        if (change > threshold && !ufos[i].isExploding) {
             score++;
             ufos[i].isExploding = true;
         }
@@ -132,9 +132,7 @@ function Ufo(d) {
         this.y += moveY;
         this.noiseX += 0.01;
         this.noiseY += 0.01;
-        if (this.x < 0 || this.x > 500) return true;
-        if (this.y < 0 || this.y > 500) return true;
-        return false;
+        return this.x < 0 || this.x > 500 || this.y < 0 || this.y > 500;
     };
 
 }
