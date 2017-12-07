@@ -59,6 +59,7 @@ function draw() {
 
         image(capture, 0, 0);
 
+        imageMode(CENTER);
         for (var i = 0; i < ufos.length; i++) {
             ufos[i].display();
             if (ufos[i].isExploding) {
@@ -73,6 +74,7 @@ function draw() {
                 ufos.push(new Ufo(random([-1, 1])));
             }
         }
+        imageMode(CORNER);
 
         checkHits();
         compareFrame.copy(capture, 0, 0, 500, 500, 0, 0, 500, 500);
@@ -87,7 +89,7 @@ function checkHits() {
         var y = round(ufos[i].y);
 
         var loc = (x + y * 500) * 4;
-
+        if (loc < 0 || loc > capture.pixels.length) continue;
         var change = dist(capture.pixels[loc], capture.pixels[loc + 1],
             capture.pixels[loc + 2], compareFrame.pixels[loc],
             compareFrame.pixels[loc + 1], compareFrame.pixels[loc + 2]);
@@ -96,6 +98,7 @@ function checkHits() {
             score++;
             ufos[i].isExploding = true;
         }
+
     }
 }
 
@@ -110,10 +113,10 @@ function Ufo(d) {
     }
     this.y = random(0, 500);
     this.direction = d;
-    this.noiseX = random(0,1000);
-    this.noiseY = random(4000,5000);
+    this.noiseX = random(0, 1000);
+    this.noiseY = random(4000, 5000);
 
-    this.display = function() {
+    this.display = function () {
         if (this.isExploding) {
             tint(255, this.opacity);
             image(blast, this.x, this.y, 40, 40);
