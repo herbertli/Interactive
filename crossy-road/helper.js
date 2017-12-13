@@ -37,11 +37,12 @@ function layoutCars(wo) {
     var w = 4;
 
     for (var i = 0; i < 4; i++) {
+        var speed = isMobile ? random(0.05, 0.3) * 2 : random(0.05, 0.3);
         var car = new Car({
             x: 0, y: w / 3, z: offset,
             width: w, height: w / 5, depth: 2,
             red: random(255), green: random(255), blue: random(255),
-            speed: random(0.05, 0.3) * ( random(-1, 1) > 0 ? 1 : -1)
+            speed: speed * (i % 2 === 0 ? 1 : -1)
         });
         car.addToWorld(wo);
         cars.push(car);
@@ -51,11 +52,12 @@ function layoutCars(wo) {
     offset = 24;
 
     for (var i = 0; i < 4; i++) {
+        var speed = isMobile ? random(0.05, 0.3) * 2 : random(0.05, 0.3);
         var car = new Car({
             x: 0, y: w / 3, z: offset,
             width: w, height: w / 5, depth: random(1, 2),
             red: random(255), green: random(255), blue: random(255),
-            speed: random(0.05, 0.3) * ( random(-1, 1) > 0 ? 1 : -1)
+            speed: speed * (i % 2 === 0 ? 1 : -1)
         });
         car.addToWorld(wo);
         cars.push(car);
@@ -71,10 +73,11 @@ function layoutLogs(w) {
         var numLogs = random(3, 4);
         for (var i = 0; i < numLogs; i++) {
             var width = random(6, 8);
+            var speed = isMobile ? random(0.05, 0.1) * 2 : random(0.05, 0.1);
             var log = new Log({
                 x: random(-43, 43), y: 0, z: riverOffset,
                 width: width, height: 1, depth: 4,
-                xSpeed: random(0.05, 0.1) * (row % 2 === 0 ? 1 : -1), ySpeed: 0, zSpeed: 0
+                xSpeed: speed * (row % 2 === 0 ? 1 : -1), ySpeed: 0, zSpeed: 0
             });
             log.addToWorld(w);
             logs.push(log);
@@ -86,7 +89,7 @@ function layoutLogs(w) {
 
 function layoutCoins(w) {
 
-    for (var i = 0; i < 2; i++) {
+    for (var i = 0; i < 4; i++) {
         var coin = new Coin({
             x: random(-43, 43),
             z: random(-43, -15)
@@ -95,7 +98,7 @@ function layoutCoins(w) {
         coins.push(coin);
     }
 
-    for (var i = 0; i < 2; i++) {
+    for (var i = 0; i < 4; i++) {
         var coin = new Coin({
             x: random(-43, 43),
             z: random(15, 43)
@@ -116,14 +119,13 @@ function layoutFences(w) {
     fence.addToWorld(w);
 }
 
-function layoutClouds(world){
+function layoutClouds(world) {
 
+    for (var i = 0; i < 15; i++) {
 
-    for(var i=0; i<15; i++){
-
-        var wid = random(2,7);
+        var wid = random(2, 7);
         var cloud = new Cloud({
-            x: random(-70, 70), y: random(14,23), z: random(-70, 70), width:wid, height:wid*0.6
+            x: random(-70, 70), y: random(14, 23), z: random(-70, 70), width: wid, height: wid * 0.6
         });
         cloud.addToWorld(world);
     }
@@ -135,27 +137,25 @@ function refreshScore() {
 }
 
 // var seconds;
-function refreshTimer(){
+function refreshTimer() {
 
+    var curr = second();
+    if (curr !== lastSec) {
+        timer--;
+        lastSec = curr;
+    }
 
-    timer--;
-    if(timer===0) {
+    if (timer === 0) {
 
         setUpGameOver();
 
-
-
     } //game over
 
-    var totalSeconds = parseInt(timer/60);
-    var minu = parseInt( totalSeconds /60);
+    var totalSeconds = parseInt(timer);
 
+    var minu = parseInt(totalSeconds / 60);
     var sec = parseInt(totalSeconds % 60);
-
-    // console.log("Time: " + minutes + ":" +seconds==60? 0:seconds);
-    var displaySec = (sec<10? "0"+sec:sec);
-
-    // if(displaySec<)
+    var displaySec = (sec < 10 ? "0" + sec : sec);
 
     $("#timer").attr("value", "Time: " + minu + ":" + displaySec);
 }
@@ -170,11 +170,14 @@ function isBrowserMobile() {
 
 }
 
-function layoutGame(){
+function layoutGame() {
 
     world.camera.holder.append(scoreHolder[0]); //add score display
     world.camera.holder.append(timerHolder[0]); //add timer display
-    timer = 180*60;
+
+    timer = 180;
+    lastSec = second();
+
     gameOverTimer = 0;
     score = 0;
 
@@ -186,11 +189,11 @@ function layoutGame(){
     layoutClouds(world);
 }
 
-function changeDirectionIfNeeded(c, bound){
-    if (c.lowerBody.x < 0-bound + c.lowerBody.width || c.lowerBody.x > bound - c.lowerBody.width) {
+function changeDirectionIfNeeded(c, bound) {
+    if (c.lowerBody.x < 0 - bound + c.lowerBody.width || c.lowerBody.x > bound - c.lowerBody.width) {
         c.speed = -1 * c.speed;
         if (c.speed > 0) {
-            while (c.lowerBody.x + c.speed < 0-bound + c.lowerBody.width) {
+            while (c.lowerBody.x + c.speed < 0 - bound + c.lowerBody.width) {
                 c.speed += 0.01;
             }
         }
@@ -207,7 +210,7 @@ function changeDirectionIfNeeded(c, bound){
     }
 }
 
-function punishNaughtyUserWhoGoesBeyondBound(){
+function punishNaughtyUserWhoGoesBeyondBound() {
 
     var userX = world.getUserPosition().x;
     var userY = world.getUserPosition().z;
@@ -217,41 +220,39 @@ function punishNaughtyUserWhoGoesBeyondBound(){
     if (!isPointInsideRect(userX, userY, -50, -50, 50, 50)) {
         score -= 1;
         setUserToOrigin();
-    };
+    }
 }
 
-function setUpGameOver(){
+function setUpGameOver() {
 
     $("#score").attr("value", "");
     $("#timer").attr("value", "");
 
     state = 2;
-    gameOverTimer = 3*60;
+    gameOverTimer = 3 * 60;
+
     setUserToOrigin();
     $('#endTitle').attr('value', 'Game Over!');
     $('#endScore').attr('value', 'Score: ' + score);
     $('#endAgain').attr('value', 'Click to play again!');
 
-
-
     gameOverBg = new Plane({
-        x:-1, y:2, z:38, red: 150, blue:150, green:150,
+        x: -1, y: 2, z: 38, red: 150, blue: 150, green: 150,
         width: 10, height: 4.5
     });
     world.add(gameOverBg);
 }
 
-function setUserToOrigin(){
-
+function setUserToOrigin() {
     world.setUserPosition(startX, startY, startZ);
     world.camera.holder.setAttribute("rotation", "0 1.67 0");
     refreshScore();
 }
 
-function wait(ms){
+function wait(ms) {
     var start = new Date().getTime();
     var end = start;
-    while(end < start + ms) {
+    while (end < start + ms) {
         end = new Date().getTime();
     }
 }

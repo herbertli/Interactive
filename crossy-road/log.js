@@ -34,7 +34,7 @@ function Log(opts) {
         this.body.setXYZ(x, y, z);
     };
 
-    this.checkCollision = function() {
+    this.checkCollision = function () {
         var userX = world.getUserPosition().x;
         var userY = world.getUserPosition().z;
 

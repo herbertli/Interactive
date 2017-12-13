@@ -30,7 +30,7 @@ function Car(opt) {
 
     this.speed = opt.speed;
 
-    var r = opt.radius? opt.radius: opt.y - opt.height;
+    var r = opt.radius ? opt.radius : opt.y - opt.height;
 
     this.tires.push(new Tire({
         x: opt.x - opt.width / 4,
@@ -108,18 +108,18 @@ function Car(opt) {
         })
     };
 
-    this.checkCollision = function(){
+    this.checkCollision = function () {
         var userX = world.getUserPosition().x;
         var userY = world.getUserPosition().z;
 
-        var z1 = this.lowerBody.x - this.width/2;
-        var z2 = this.lowerBody.z - this.depth/2;
+        var z1 = this.lowerBody.x - this.width / 2;
+        var z2 = this.lowerBody.z - this.depth / 2;
 
-        var z3 = this.lowerBody.x + this.width/2;
-        var z4 = this.lowerBody.z + this.depth/2;
+        var z3 = this.lowerBody.x + this.width / 2;
+        var z4 = this.lowerBody.z + this.depth / 2;
 
 
-        if( isPointInsideRect(userX, userY, z1, z2, z3, z4 ) )return true;
+        if (isPointInsideRect(userX, userY, z1, z2, z3, z4))return true;
         else return false;
     }
 
