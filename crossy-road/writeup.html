@@ -42,143 +42,142 @@
     </div>
 
     <div class="row">
-            <h2>Introduction:</h2>
-            <p>Crossy Road is a VR game where the user tries to collects coins
-                on the map while dodging cars and making sure not to fall in the water.
-                You only have three minutes to collect as many coins as you can!
-                Be careful, get hit and you'll respawn at the start of map and lose some of your score!
-            </p>
-            <h2>How to Play:</h2>
-            <p>The controls are pretty simple. Click to move forward. With a VR headset, look around as
-                you normally would, in the browser you can use click and hold to pan around the space.
-            </p>
-            <h2>Implementation Details:</h2>
-            <ul>
-                <li>Several classes for Cars, Logs, and Coins (checkCollision(), move(), display() methods)</li>
-                <li>Several classes for generating the map, e.g. Fence, Road, River made laying out the map pretty easy
-                    and makes it easy to extend the map
-                </li>
-                <li>Text display/manipulation done using jQuery</li>
-            </ul>
-
-            <h2>Classes in Depth:</h2>
-            <ul>
-                <li>Car(opt)</li>
-                <li>
-                    <ul>
-                        <li>consists of upperbody (box), lowerbody (box), tires (torus + boxes for spokes), and light
-                            (cone)
-                        </li>
-                        <li>opt's x y z will be the center point of the lowerBody's upper surface's center</li>
-                        <li>opt's height and width and depth will be lowerBody's height and width and depth</li>
-                        <li>initially, the tires were a bunch of cylinders, but due to performance issues, we toned them
-                            down to boxes
-                        </li>
-                        <li>cars also honk if the user gets too close/if they're about to get hit</li>
-                    </ul>
-                </li>
-                <li>Cloud(opt)</li>
-                <li>
-                    <ul>
-                        <li>opt's width will be the width (long part) of the cloud; height will be the height; x, y, z
-                            will be the center
-                        </li>
-                        <li>randomly generated bunch of circles</li>
-                    </ul>
-                </li>
-                <li>Coin(opt)</li>
-                <li>
-                    <ul>
-                        <li>opt's x and z are the coin's position</li>
-                    </ul>
-                </li>
-                <li>Fence(x, z, width, numPosts, direction)</li>
-                <li>
-                    <ul>
-                        <li>x, z is the center of the fence, direction determines whether fence goes in the x or z
-                            direction
-                        </li>
-                        <li>drawn using boxes</li>
-                    </ul>
-                </li>
-                <li>Floor (Road, River, Grass)</li>
-                <li>
-                    <ul>
-                        <li>Constructors take x, z, width, and depth (x, z are the center point)</li>
-                        <li>Road takes an additional parameter: lanes</li>
-                        <li>Road is drawn using an external asset image, which is just a one lane road</li>
-                    </ul>
-                </li>
-                <li>Log(opt)</li>
-                <li>
-                    <ul>
-                        <li>opt's x y z will be the center point of the log</li>
-                        <li>y should be 0 in most cases, to give the appearance of it being half submerged</li>
-                        <li>opt's height, width, and depth will be log's actual height, width, and depth</li>
-                        <li>opt should also have xSpeed, ySpeed, and zSpeed</li>
-                    </ul>
-                </li>
-            </ul>
-
-            <h2>Implementation Details:</h2>
-            <ul>
-                <li>Collisions</li>
-                <li>
-                    <ul>
-                        <li>Were mainly handled by checking whether the user (a point) was in some object</li>
-                        <li>See our point-in-rectangle function/li>
-                    </ul>
-                </li>
-                <li>Log moving</li>
-                <li>
-                    <ul>
-                        <li>Check whether user was on a log (collision detection)</li>
-                        <li>If so, nudge the user based on the log's speed</li>
-                    </ul>
-                </li>
-                <li>Timer</li>
-                <li>
-                    <ul>
-                        <li>Frame rates are inconsistent across mobile and web</li>
-                        <li>used p5 to keep track of the current second (system time), update the timer based on whether
-                            the second
-                            has changed
-                        </li>
-                    </ul>
-                </li>
-                <li>Text</li>
-                <li>
-                    <ul>
-                        <li>Used a-text and jQuery to hide, modify, and remove the text in the scene</li>
-                    </ul>
-                </li>
-                <li>Resetting the User</li>
-                <li>
-                    <ul>
-                        <li>Used setUserPosition(), but also had to use jQuery to reset the user's rotation</li>
-                    </ul>
-                </li>
-            </ul>
-
-            <h2>Challenges:</h2>
-            <ul>
-                <li>Getting used to Aframe in general</li>
-                <li>Drawing text in VR</li>
-                <li>Handling log interactions (having the user drift with logs)</li>
-            </ul>
-
-            <h2>Moving Forward:</h2>
-            <p>
-                We initially wanted to include different game modes in the game.
-                In the end, we ran out of time, however if we were given more time, we would've added
-                an arcade/endless mode, where is goal is just to see how far you can go.
-                This ends the high-level overview of our project, keep reading to see progress logs and
-                more details of our implementation
-            </p>
+        <h2>Introduction</h2>
+        <hr>
+        <p>Crossy Road is a VR game where the user tries to collects coins
+            on the map while dodging cars and making sure not to fall in the water.
+            You only have three minutes to collect as many coins as you can!
+            Be careful, get hit and you'll respawn at the start of map and lose some of your score!
+        </p>
+    </div>
+    <div class="row">
+        <h2>How to Play</h2>
+        <hr>
+        <p>The controls are pretty simple. Click to move forward. With a VR headset, look around as
+            you normally would, in the browser you can use click and hold to pan around the space.
+        </p>
     </div>
 
-</div>
+    <div class="row">
+        <h2 class="text-center">All That Being Said: Click <a href="index.html">Here</a> To Play!</h2>
+    </div>
 
+    <div class="row">
+        <h2>Implementation Details</h2>
+        <hr>
+        <ul>
+            <li>Several classes for Cars, Logs, and Coins (checkCollision(), move(), display() methods)</li>
+            <li>Several classes for generating the map, e.g. Fence, Road, River made laying out the map pretty easy
+                and makes it easy to extend the map
+            </li>
+            <li>Text display/manipulation done using jQuery</li>
+        </ul>
+    </div>
+
+    <div class="row">
+        <h2>Classes in Depth</h2>
+        <hr>
+        <ul>
+            <li>Car(opt)</li>
+            <ul>
+                <li>consists of upperbody (box), lowerbody (box), tires (torus + boxes for spokes), and light
+                    (cone)
+                </li>
+                <li>opt's x y z will be the center point of the lowerBody's upper surface's center</li>
+                <li>opt's height and width and depth will be lowerBody's height and width and depth</li>
+                <li>initially, the tires were a bunch of cylinders, but due to performance issues, we toned them
+                    down to boxes
+                </li>
+                <li>cars also honk if the user gets too close/if they're about to get hit</li>
+            </ul>
+            <li>Cloud(opt)</li>
+            <ul>
+                <li>opt's width will be the width (long part) of the cloud; height will be the height; x, y, z
+                    will be the center
+                </li>
+                <li>randomly generated bunch of circles</li>
+            </ul>
+            <li>Coin(opt)</li>
+            <ul>
+                <li>opt's x and z are the coin's position</li>
+            </ul>
+            <li>Fence(x, z, width, numPosts, direction)</li>
+            <ul>
+                <li>x, z is the center of the fence, direction determines whether fence goes in the x or z
+                    direction
+                </li>
+                <li>drawn using boxes</li>
+            </ul>
+            <li>Floor (Road, River, Grass)</li>
+            <ul>
+                <li>Constructors take x, z, width, and depth (x, z are the center point)</li>
+                <li>Road takes an additional parameter: lanes</li>
+                <li>Road is drawn using an external asset image, which is just a one lane road</li>
+            </ul>
+            <li>Log(opt)</li>
+            <ul>
+                <li>opt's x y z will be the center point of the log</li>
+                <li>y should be 0 in most cases, to give the appearance of it being half submerged</li>
+                <li>opt's height, width, and depth will be log's actual height, width, and depth</li>
+                <li>opt should also have xSpeed, ySpeed, and zSpeed</li>
+            </ul>
+        </ul>
+    </div>
+
+    <div class="row">
+        <h2>Implementation Details</h2>
+        <hr>
+        <ul>
+            <li>Collisions</li>
+            <ul>
+                <li>Were mainly handled by checking whether the user (a point) was in some object</li>
+                <li>See our point-in-rectangle function</li>
+            </ul>
+            <li>Log moving</li>
+            <ul>
+                <li>Check whether user was on a log (collision detection)</li>
+                <li>If so, nudge the user based on the log's speed</li>
+            </ul>
+            <li>Timer</li>
+            <ul>
+                <li>Frame rates are inconsistent across mobile and web</li>
+                <li>used p5 to keep track of the current second (system time), update the timer based on whether
+                    the second has changed
+                </li>
+            </ul>
+            <li>Text</li>
+            <ul>
+                <li>Used a-text and jQuery to hide, modify, and remove the text in the scene</li>
+            </ul>
+            <li>Resetting the User</li>
+            <ul>
+                <li>Used setUserPosition(), but also had to use jQuery to reset the user's rotation</li>
+            </ul>
+        </ul>
+    </div>
+    <div class="row">
+
+        <h2>Challenges</h2>
+        <hr>
+        <ul>
+            <li>Getting used to Aframe in general</li>
+            <li>Drawing text in VR</li>
+            <li>Handling log interactions (having the user drift with logs)</li>
+        </ul>
+    </div>
+    <div class="row">
+
+        <h2>Moving Forward</h2>
+        <hr>
+        <p>
+            We initially wanted to include different game modes in the game.
+            In the end, we ran out of time, however if we were given more time, we would've added
+            an arcade/endless mode, where is goal is just to see how far you can go.
+            This ends the high-level overview of our project, keep reading to see progress logs and
+            more details of our implementation
+        </p>
+    </div>
+</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
